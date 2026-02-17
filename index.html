@@ -138,6 +138,9 @@ const times = PT.getTimes(date, coords);
 }
 
 updateTimes();
+document.getElementById("angle").addEventListener("change", () => {
+  updateTimes();
+});
 </script>
 </body>
 </html>
