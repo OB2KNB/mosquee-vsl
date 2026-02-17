@@ -6,6 +6,15 @@
   <title>Mosquée de Villeneuve-sur-Lot</title>
 <script src="https://praytimes.org/code/v2/js/PrayTimes.js"></script>
   <style>
+  <script>
+document.getElementById("fajr").innerText = "TEST";
+
+if (typeof PrayTimes === "function") {
+  document.getElementById("dhuhr").innerText = "PrayTimes OK";
+} else {
+  document.getElementById("dhuhr").innerText = "PrayTimes PAS CHARGÉ";
+}
+</script>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
