@@ -119,6 +119,10 @@ document.body.appendChild(nextDiv);
 <script>
 const PT = new PrayTimes('MWL');
 
+function getAngle() {
+  return document.getElementById("angle").value;
+}
+
 function updateTimes() {
   const date = new Date();
   const coords = [44.408, 0.704]; // Villeneuve-sur-Lot
