@@ -127,7 +127,8 @@ function updateTimes() {
   const date = new Date();
   const coords = [44.408, 0.704]; // Villeneuve-sur-Lot
 
-  const times = PT.getTimes(date, coords);
+PT.adjust({ fajr: getAngle(), isha: getAngle() });
+const times = PT.getTimes(date, coords);
 
   document.getElementById("fajr").innerText = times.fajr;
   document.getElementById("dhuhr").innerText = times.dhuhr;
