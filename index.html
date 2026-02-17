@@ -106,5 +106,23 @@ nextDiv.innerText = "Prochaine prière : " + getNextPrayer();
 
 document.body.appendChild(nextDiv);
 </script>
+<script>
+const PT = new PrayTimes('MWL');
+
+function updateTimes() {
+  const date = new Date();
+  const coords = [44.408, 0.704]; // Villeneuve-sur-Lot
+
+  const times = PT.getTimes(date, coords);
+
+  document.getElementById("fajr").innerText = times.fajr;
+  document.getElementById("dhuhr").innerText = times.dhuhr;
+  document.getElementById("asr").innerText = times.asr;
+  document.getElementById("maghrib").innerText = times.maghrib;
+  document.getElementById("isha").innerText = times.isha;
+}
+
+updateTimes();
+</script>
 </body>
 </html>
