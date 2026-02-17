@@ -136,7 +136,9 @@ const times = PT.getTimes(date, coords);
   document.getElementById("maghrib").innerText = times.maghrib;
   document.getElementById("isha").innerText = times.isha;
 }
-
+function getAngle() {
+  return Number(document.getElementById("angle").value);
+}
 updateTimes();
 document.getElementById("angle").addEventListener("change", () => {
   updateTimes();
