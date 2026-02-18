@@ -260,6 +260,99 @@ updateTimes();
 document.getElementById("angle").addEventListener("change", () => {
   updateTimes();
 });
+// ===== QIBLA / BOUSSOLE =====
+const qiblaBtn = document.getElementById("enableCompass");
+const qiblaValue = document.getElementById("qiblaValue");
+
+// Coordonnées Kaaba (La Mecque)
+const KAABA = { lat: 21.422487, lon: 39.826206 };
+
+// Calcul de l'angle Qibla (azimut) depuis une position (lat/lon)
+function qiblaBearing(lat, lon) {
+  const toRad = (d) => (d * Math.PI) / 180;
+  const toDeg = (r) => (r * 180) / Math.PI;
+
+  const φ1 = toRad(lat);
+  const φ2 = toRad(KAABA.lat);
+  const Δλ = toRad(KAABA.lon - lon);
+
+  const y = Math.sin(Δλ);
+  const x = Math.cos(φ1) * Math.tan(φ2) - Math.sin(φ1) * Math.cos(Δλ);
+  let brng = toDeg(Math.atan2(y, x));
+  brng = (brng + 360) % 360;
+  return brng;
+}
+
+async function requestIOSCompassPermission() {
+  // iOS: permission obligatoire à l'intérieur d'un clic utilisateur
+  if (typeof DeviceOrientationEvent !== "undefined" &&
+      typeof DeviceOrientationEvent.requestPermission === "function") {
+    const res = await DeviceOrientationEvent.requestPermission();
+    if (res !== "granted") throw new Error("Permission boussole refusée");
+  }
+}
+
+function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) return reject(new Error("Geoloc indisponible"));
+    navigator.geolocation.getCurrentPosition(
+      (pos) => resolve(pos.coords),
+      (err) => reject(err),
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  });
+}
+
+function listenCompass(targetBearing) {
+  function onOrientation(e) {
+    // iOS Safari fournit souvent webkitCompassHeading (0 = Nord)
+    let heading = null;
+
+    if (typeof e.webkitCompassHeading === "number") {
+      heading = e.webkitCompassHeading; // iOS
+    } else if (typeof e.alpha === "number") {
+      // Android/others: alpha ~ rotation autour de l'axe Z
+      heading = (360 - e.alpha) % 360;
+    }
+
+    if (heading === null) return;
+
+    // Différence entre où pointe le téléphone et la Qibla
+    const direction = (targetBearing - heading + 360) % 360;
+    qiblaValue.textContent = `${Math.round(direction)}°`;
+  }
+
+  window.addEventListener("deviceorientation", onOrientation, true);
+  window.addEventListener("deviceorientationabsolute", onOrientation, true);
+}
+
+async function startQiblaCompass() {
+  try {
+    qiblaValue.textContent = "…";
+
+    await requestIOSCompassPermission();
+
+    // Position (si refus -> fallback Villeneuve)
+    let lat = 44.408, lon = 0.704; // Villeneuve-sur-Lot
+    try {
+      const coords = await getUserLocation();
+      lat = coords.latitude;
+      lon = coords.longitude;
+    } catch (e) {
+      // OK, on garde le fallback
+    }
+
+    const bearing = qiblaBearing(lat, lon);
+    listenCompass(bearing);
+  } catch (e) {
+    qiblaValue.textContent = "--°";
+    alert("iPhone: autorise la boussole + la localisation dans Safari, puis réessaie.");
+  }
+}
+
+if (qiblaBtn) {
+  qiblaBtn.addEventListener("click", startQiblaCompass);
+}
 </script>
 </body>
 </html>
