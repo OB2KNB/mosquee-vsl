@@ -140,6 +140,7 @@ const times = PT.getTimes(date, coords);
   document.getElementById("asr").innerText = times.asr;
   document.getElementById("maghrib").innerText = times.maghrib;
   document.getElementById("isha").innerText = times.isha;
+  startCountdown(times);
 }
 let countdownTimer = null;
 
