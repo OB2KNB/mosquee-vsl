@@ -66,6 +66,60 @@ h1{
   color:#a78bfa;
   margin-top:6px;
 }
+/* ===== QIBLA COMPASS STYLE ===== */
+.qiblaBox{
+  padding:18px;
+  text-align:center;
+}
+
+.compass{
+  width:180px;
+  height:180px;
+  margin:12px auto 14px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  position:relative;
+  backdrop-filter: blur(8px);
+}
+
+.needle{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:4px;
+  height:72px;
+  border-radius:999px;
+  transform-origin: 50% 90%;
+  transform: translate(-50%,-90%) rotate(0deg);
+  background: linear-gradient(180deg, rgba(167,139,250,1), rgba(167,139,250,0));
+  filter: drop-shadow(0 6px 10px rgba(167,139,250,0.25));
+  transition: transform 120ms linear;
+}
+
+.centerDot{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  transform: translate(-50%,-50%);
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.qiblaInfo{
+  font-size:14px;
+  opacity:0.9;
+  margin-top:8px;
+}
+
+.qiblaValue{
+  font-size:18px;
+  font-weight:700;
+  margin-top:6px;
+}
   </style>
 </head>
 
