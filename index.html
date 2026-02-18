@@ -358,28 +358,32 @@ function getUserLocation() {
 }
 
 function listenCompass(targetBearing) {
+
   function onOrientation(e) {
-    // iOS Safari fournit souvent webkitCompassHeading (0 = Nord)
+
     let heading = null;
 
     if (typeof e.webkitCompassHeading === "number") {
-      heading = e.webkitCompassHeading; // iOS
+      heading = e.webkitCompassHeading;
     } else if (typeof e.alpha === "number") {
-      // Android/others: alpha ~ rotation autour de l'axe Z
       heading = (360 - e.alpha) % 360;
     }
 
     if (heading === null) return;
 
-    // Différence entre où pointe le téléphone et la Qibla
     const direction = (targetBearing - heading + 360) % 360;
-    qiblaValue.textContent = `${Math.round(direction)}°`;
+
+    // texte degrés
+    qiblaValue.textContent = Math.round(direction) + "°";
+
+    // rotation fluide aiguille
+    const needle = document.getElementById("qiblaNeedle");
+    if (needle) {
+      needle.style.transform =
+        "translate(-50%, -90%) rotate(" + direction + "deg)";
+    }
   }
-const needle = document.getElementById("qiblaNeedle");
-if (needle) {
-  needle.style.transform =
-    `translate(-50%, -90%) rotate(${direction}deg)`;
-}
+
   window.addEventListener("deviceorientation", onOrientation, true);
   window.addEventListener("deviceorientationabsolute", onOrientation, true);
 }
