@@ -351,10 +351,7 @@ async function startQiblaCompass() {
 }
 
 if (qiblaBtn) {
-  qiblaBtn.addEventListener("click", () => {
-    qiblaBtn.textContent = "CLIC OK ✅";
-    qiblaValue.textContent = "test ok";
-  });
+  qiblaBtn.addEventListener("click", startQiblaCompass);
 }
 </script>
 </body>
