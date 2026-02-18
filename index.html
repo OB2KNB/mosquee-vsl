@@ -141,6 +141,57 @@ const times = PT.getTimes(date, coords);
   document.getElementById("maghrib").innerText = times.maghrib;
   document.getElementById("isha").innerText = times.isha;
 }
+let countdownTimer = null;
+
+function hhmmToDate(hhmm) {
+  const [h, m] = hhmm.split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+function formatHMS(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const h = String(Math.floor(total / 3600)).padStart(2, "0");
+  const m = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
+  const s = String(total % 60).padStart(2, "0");
+  return `${h}:${m}:${s}`;
+}
+
+function startCountdown(times) {
+  const order = [
+    { key: "fajr", name: "Fajr" },
+    { key: "dhuhr", name: "Dhuhr" },
+    { key: "asr", name: "Asr" },
+    { key: "maghrib", name: "Maghrib" },
+    { key: "isha", name: "Isha" },
+  ];
+
+  const now = new Date();
+  let next = null;
+
+  for (const p of order) {
+    const target = hhmmToDate(times[p.key]);
+    if (target > now) {
+      next = { ...p, at: target, time: times[p.key], tomorrow: false };
+      break;
+    }
+  }
+
+  if (!next) {
+    const tomorrowFajr = hhmmToDate(times.fajr);
+    tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
+    next = { key: "fajr", name: "Fajr", at: tomorrowFajr, time: times.fajr, tomorrow: true };
+  }
+
+  document.getElementById("nextPrayer").innerText =
+    `${next.name} à ${next.time}` + (next.tomorrow ? " (demain)" : "");
+
+  if (countdownTimer) clearInterval(countdownTimer);
+  countdownTimer = setInterval(() => {
+    document.getElementById("countdown").innerText = formatHMS(next.at - new Date());
+  }, 1000);
+}
 function getAngle() {
   return Number(document.getElementById("angle").value);
 }
