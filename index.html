@@ -375,7 +375,11 @@ function listenCompass(targetBearing) {
     const direction = (targetBearing - heading + 360) % 360;
     qiblaValue.textContent = `${Math.round(direction)}°`;
   }
-
+const needle = document.getElementById("qiblaNeedle");
+if (needle) {
+  needle.style.transform =
+    `translate(-50%, -90%) rotate(${direction}deg)`;
+}
   window.addEventListener("deviceorientation", onOrientation, true);
   window.addEventListener("deviceorientationabsolute", onOrientation, true);
 }
