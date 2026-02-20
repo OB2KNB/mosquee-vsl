@@ -572,7 +572,11 @@ async (position) => {
   locStatus.textContent = city
     ? `📍 ${city} · localisation active`
     : `📍 Localisation active`;
-}
+},
+  () => {
+    locStatus.textContent = "Autorisation refusée.";
+  }
+);
 async function reverseGeocodeCity(lat, lon) {
   try {
     const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=fr`;
