@@ -562,8 +562,16 @@ async (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
-      locStatus.textContent =
-        "Position détectée : " + lat.toFixed(4) + ", " + lon.toFixed(4);
+      // 1) Horaires
+calculatePrayerTimes(lat, lon);
+
+// 2) Ville
+locStatus.textContent = "Localisation…";
+const city = await reverseGeocodeCity(lat, lon);
+
+locStatus.textContent = city
+  ? `Ville : ${city}`
+  : `Position détectée : ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
 
       // ⚡ On met à jour les horaires avec les nouvelles coordonnées
       calculatePrayerTimes(lat, lon);
