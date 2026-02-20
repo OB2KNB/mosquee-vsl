@@ -1,11 +1,21 @@
 {
-"name": "Qamar",
-"short_name": "Qamar",
-  "start_url": ".",
+  "name": "Qamar",
+  "short_name": "Qamar",
+  "start_url": "/mosquee-vsl/",
+  "scope": "/mosquee-vsl/",
   "display": "standalone",
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
-"icons": [
-  { "src": "icon-192.PNG", "sizes": "192x192", "type": "image/png" },
-  { "src": "icon-512.PNG", "sizes": "512x512", "type": "image/png" }
-]
+  "icons": [
+    {
+      "src": "icon-192.PNG",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.PNG",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
