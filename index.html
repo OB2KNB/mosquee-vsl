@@ -339,11 +339,12 @@ let coords = [44.408, 0.704]; // Villeneuve par défaut
 function updateTimes() {
   const date = new Date();
 
+  const timezone = -new Date().getTimezoneOffset() / 60;
 
-const timezone = -new Date().getTimezoneOffset() / 60;
-const times = PT.getTimes(date, coords, timezone);
+  const angle = Number(document.getElementById("angle").value);
+  PT.adjust({ fajr: angle, isha: angle });
 
-
+  const times = PT.getTimes(date, coords, timezone, 0);
   document.getElementById("fajr").innerText = times.fajr;
   document.getElementById("dhuhr").innerText = times.dhuhr;
   document.getElementById("asr").innerText = times.asr;
