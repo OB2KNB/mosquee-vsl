@@ -145,14 +145,22 @@ h1{
 <p class="angle-info">
   Certaines fédérations utilisent 12°, 15° ou 18° selon leur méthode de calcul.
 </p>
-<div class="card">
-  <div style="font-weight:600;margin-bottom:8px;">Localisation</div>
-  <div id="locStatus" style="opacity:.8;font-size:14px;margin-bottom:10px;">
-    Ville : Villeneuve-sur-Lot (par défaut)
+<div class="locCard">
+  <div class="locTop">
+    <div class="locIcon">⌖</div>
+    <div class="locText">
+      <div class="locTitle">Localisation</div>
+      <div class="locSub" id="locStatus">Villeneuve-sur-Lot • par défaut</div>
+    </div>
+    <button class="locBtn" id="geoBtn" type="button">
+      <span class="locBtnDot"></span>
+      Actualiser
+    </button>
   </div>
-  <button id="geoBtn" style="width:100%;padding:10px;border-radius:12px;border:none;background:#7c5cff;color:white;font-weight:600;">
-    Utiliser ma position
-  </button>
+
+  <div class="locHint">
+    Pour des horaires précis, active la localisation une fois.
+  </div>
 </div>
 </div>
 <div id="nextBox" style="max-width:320px;margin:10px auto 20px;padding:14px;border-radius:14px;background:#121a2b;">
