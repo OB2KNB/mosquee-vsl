@@ -340,7 +340,8 @@ function updateTimes() {
   const date = new Date();
 
 
-PT.adjust({ fajr: getAngle(), isha: getAngle() });
+const timezone = -new Date().getTimezoneOffset() / 60;
+const times = PT.getTimes(date, coords, timezone);
 const times = PT.getTimes(date, coords);
 
   document.getElementById("fajr").innerText = times.fajr;
