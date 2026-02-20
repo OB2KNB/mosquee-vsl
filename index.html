@@ -331,6 +331,11 @@ function startCountdown(times) {
 function getAngle() {
   return Number(document.getElementById("angle").value);
 }
+// 🔁 Restaurer l’angle sauvegardé
+const savedAngle = localStorage.getItem("prayerAngle");
+if (savedAngle) {
+  document.getElementById("angle").value = savedAngle;
+}
 updateTimes();
 document.getElementById("angle").addEventListener("change", (e) => {
   const selectedAngle = e.target.value;
