@@ -571,7 +571,7 @@ const city = await reverseGeocodeCity(lat, lon);
 locStatus.textContent = city
     ? `📍 ${city} · localisation active`
     : `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)} · localisation active`;
-locStatus.textContent = city
+
 
       // ⚡ On met à jour les horaires avec les nouvelles coordonnées
       calculatePrayerTimes(lat, lon);
