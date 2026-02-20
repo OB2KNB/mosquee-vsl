@@ -573,6 +573,19 @@ geoBtn.addEventListener("click", () => {
     }
   );
 });
+async function reverseGeocodeCity(lat, lon) {
+  try {
+    const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=fr`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data?.results?.length) {
+      const r = data.results[0];
+      return r.name || null;
+    }
+  } catch (e) {}
+  return null;
+}
 </script>
 </body>
 </html>
