@@ -243,7 +243,7 @@ function getAngle() {
 
 function updateTimes() {
   const date = new Date();
-  const coords = [44.408, 0.704]; // Villeneuve-sur-Lot
+
 
 PT.adjust({ fajr: getAngle(), isha: getAngle() });
 const times = PT.getTimes(date, coords);
