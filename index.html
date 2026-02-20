@@ -558,7 +558,7 @@ geoBtn.addEventListener("click", () => {
   locStatus.textContent = "Localisation en cours...";
 
   navigator.geolocation.getCurrentPosition(
-    (position) => {
+async (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
