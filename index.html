@@ -335,6 +335,10 @@ updateTimes();
 document.getElementById("angle").addEventListener("change", () => {
   updateTimes();
 });
+function calculatePrayerTimes(lat, lon) {
+  coords = [lat, lon];
+  updateTimes();
+}
 // ===== QIBLA / BOUSSOLE =====
 const qiblaBtn = document.getElementById("enableCompass");
 const qiblaValue = document.getElementById("qiblaInfo");
