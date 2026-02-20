@@ -332,7 +332,11 @@ function getAngle() {
   return Number(document.getElementById("angle").value);
 }
 updateTimes();
-document.getElementById("angle").addEventListener("change", () => {
+document.getElementById("angle").addEventListener("change", (e) => {
+  const selectedAngle = e.target.value;
+
+  localStorage.setItem("prayerAngle", selectedAngle);
+
   updateTimes();
 });
 function calculatePrayerTimes(lat, lon) {
