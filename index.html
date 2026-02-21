@@ -588,6 +588,12 @@ async function reverseGeocodeCity(lat, lon) {
   } catch (e) {}
   return null;
 }
+// afficher les horaires au chargement
+updateTimes();
+
+// quand on change l'angle, recalcul direct
+const angleEl = document.getElementById("angle");
+if (angleEl) angleEl.addEventListener("change", updateTimes);
 </script>
 </body>
 </html>
