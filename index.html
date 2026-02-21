@@ -2,385 +2,252 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Qamar</title>
 
-  <meta name="apple-mobile-web-app-title" content="Qamar">
-  <meta name="theme-color" content="#0b1220">
-
-  <link rel="manifest" href="manifest.json">
-
-  <!-- ⚠️ Mets les bons noms exacts de tes fichiers icônes -->
-  <link rel="icon" type="image/png" href="icon-192.PNG">
-  <link rel="apple-touch-icon" href="icon-192.PNG">
-
+  <!-- PrayTimes lib -->
   <script src="https://praytimes.org/code/v2/js/PrayTimes.js"></script>
 
   <style>
     body{
       margin:0;
-      font-family:-apple-system, BlinkMacSystemFont, sans-serif;
-      background:linear-gradient(180deg,#0b1220,#05070f);
-      color:#ffffff;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:linear-gradient(180deg,#0b1220,#0b0f1a);
+      color:#fff;
       text-align:center;
     }
-    h1{ margin-top:30px; font-size:28px; font-weight:700; }
-
+    h1{ margin:30px 16px 8px; font-size:34px; font-weight:800; }
+    .sub{ opacity:.8; margin:0 16px 18px; }
+    .wrap{ max-width:680px; margin:0 auto; padding:0 14px 40px; }
     .card{
-      background:rgba(20,28,48,0.9);
-      margin:12px 16px;
+      background:rgba(20,28,48,.92);
+      margin:12px 0;
       padding:18px;
       border-radius:22px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.45);
-      backdrop-filter:blur(6px);
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
     }
-    .card > div:first-child{ font-size:15px; opacity:0.8; }
-    .time{ font-size:42px; font-weight:800; margin-top:6px; color:#a78bfa; }
-    .iqama{ margin-top:6px; font-size:14px; opacity:0.7; }
-
-    #nextBox{
-      background:rgba(20,28,48,0.9);
-      margin:18px 16px;
-      padding:18px;
-      border-radius:22px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.45);
-      max-width:320px;
-    }
-    #nextPrayer{ font-size:18px; margin-top:6px; }
-    #countdown{ font-size:34px; font-weight:800; color:#a78bfa; margin-top:6px; }
-
-    .angle-info{ opacity:.65; font-size:12px; line-height:1.35; margin:10px 0 0; }
-
+    .row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .label{ opacity:.85; font-weight:700; }
     select{
       width:100%;
-      padding:10px;
-      border-radius:12px;
-      border:none;
-      background:#121a2b;
-      color:white;
-      font-weight:600;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      color:#fff;
+      font-size:16px;
     }
-
-    #geoBtn{
-      width:100%;
-      padding:10px;
-      border-radius:12px;
-      border:none;
-      background:#7c5cff;
-      color:white;
-      font-weight:700;
-      margin-top:10px;
-    }
-
-    /* Qibla */
-    .compass{
-      width:180px; height:180px;
-      margin:12px auto 14px;
-      border-radius:999px;
-      background: rgba(255,255,255,0.06);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
-      position:relative;
-      backdrop-filter: blur(8px);
-    }
-    .needle{
-      position:absolute;
-      left:50%; top:50%;
-      width:4px; height:72px;
-      border-radius:999px;
-      transform-origin: 50% 90%;
-      transform: translate(-50%,-90%) rotate(0deg);
-      background: linear-gradient(180deg, rgba(167,139,250,1), rgba(167,139,250,0));
-      filter: drop-shadow(0 6px 10px rgba(167,139,250,0.25));
-      transition: transform 120ms linear;
-    }
-    .centerDot{
-      position:absolute;
-      left:50%; top:50%;
-      width:10px; height:10px;
-      border-radius:999px;
-      transform: translate(-50%,-50%);
-      background: rgba(255,255,255,0.7);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-    }
-    .hint{ opacity:.65; font-size:12px; margin-top:8px; line-height:1.35; }
     .btn{
       width:100%;
-      padding:10px;
-      border-radius:12px;
-      border:none;
-      background:#2dd4bf;
-      color:#061018;
+      padding:14px 16px;
+      border-radius:16px;
+      border:0;
+      background:#7c5cff;
+      color:#fff;
       font-weight:800;
-      margin-top:10px;
+      font-size:16px;
     }
+    .hint{ opacity:.65; margin-top:10px; font-size:13px; line-height:1.3; }
+    .big{ font-size:54px; font-weight:900; color:#a78bfa; letter-spacing:1px; margin:10px 0 0; }
+    .title2{ font-size:18px; opacity:.8; margin:0; }
+    .time{ font-size:54px; font-weight:900; color:#a78bfa; margin:8px 0 0; }
+    .iqama{ opacity:.75; margin-top:8px; }
+    .small{ opacity:.65; font-size:12px; margin-top:18px; }
   </style>
 </head>
 
 <body>
   <h1>Mosquée de Villeneuve-sur-Lot</h1>
+  <div class="sub">Angle (France)</div>
 
-  <div style="max-width:320px;margin:10px auto 0;">
-    <label style="display:block;margin-bottom:6px;opacity:.85;">Angle (France)</label>
-    <select id="angle">
-      <option value="12">12°</option>
-      <option value="15">15°</option>
-      <option value="18">18°</option>
-    </select>
-
-    <p class="angle-info">
-      Certaines fédérations utilisent 12°, 15° ou 18° selon leur méthode de calcul.
-    </p>
+  <div class="wrap">
+    <div class="card">
+      <select id="angle">
+        <option value="12">12°</option>
+        <option value="15" selected>15°</option>
+        <option value="18">18°</option>
+      </select>
+      <div class="hint">Certaines fédérations utilisent 12°, 15° ou 18° selon leur méthode de calcul.</div>
+    </div>
 
     <div class="card">
-      <div style="font-weight:700;margin-bottom:8px;">Localisation</div>
-      <div id="locStatus" style="opacity:.8;font-size:14px;">
+      <div class="label" style="font-size:22px; font-weight:900;">Localisation</div>
+      <div id="locStatus" style="margin:8px 0 14px; font-weight:800; color:#a78bfa;">
         📍 Villeneuve-sur-Lot • par défaut
       </div>
-      <button id="geoBtn">Actualiser</button>
+      <button class="btn" id="geoBtn" type="button">Actualiser</button>
       <div class="hint">Pour des horaires précis, active la localisation une fois.</div>
     </div>
 
-    <div id="nextBox" class="card">
-      <div style="opacity:.8;font-size:14px;">Prochaine prière</div>
-      <div id="nextPrayer">--</div>
-      <div id="countdown">--:--:--</div>
+    <div class="card">
+      <div class="title2">Prochaine prière</div>
+      <div id="nextLabel" style="font-size:30px; font-weight:900; margin-top:6px;">--</div>
+      <div class="big" id="countdown">--:--:--</div>
     </div>
+
+    <div class="card">
+      <div class="title2">Fajr</div>
+      <div class="time" id="fajr">--:--</div>
+      <div class="iqama" id="iqama-fajr">Iqama: --:--</div>
+    </div>
+
+    <div class="card">
+      <div class="title2">Dhuhr</div>
+      <div class="time" id="dhuhr">--:--</div>
+      <div class="iqama" id="iqama-dhuhr">Iqama: --:--</div>
+    </div>
+
+    <div class="card">
+      <div class="title2">Asr</div>
+      <div class="time" id="asr">--:--</div>
+      <div class="iqama" id="iqama-asr">Iqama: --:--</div>
+    </div>
+
+    <div class="card">
+      <div class="title2">Maghrib</div>
+      <div class="time" id="maghrib">--:--</div>
+      <div class="iqama" id="iqama-maghrib">Iqama: --:--</div>
+    </div>
+
+    <div class="card">
+      <div class="title2">Isha</div>
+      <div class="time" id="isha">--:--</div>
+      <div class="iqama" id="iqama-isha">Iqama: --:--</div>
+    </div>
+
+    <div class="small">Première version de l’app</div>
   </div>
 
-  <div class="card"><div>Fajr</div><div class="time" id="fajr">--:--</div><div class="iqama" id="iqama-fajr">Iqama: --:--</div></div>
-  <div class="card"><div>Dhuhr</div><div class="time" id="dhuhr">--:--</div><div class="iqama" id="iqama-dhuhr">Iqama: --:--</div></div>
-  <div class="card"><div>Asr</div><div class="time" id="asr">--:--</div><div class="iqama" id="iqama-asr">Iqama: --:--</div></div>
-  <div class="card"><div>Maghrib</div><div class="time" id="maghrib">--:--</div><div class="iqama" id="iqama-maghrib">Iqama: --:--</div></div>
-  <div class="card"><div>Isha</div><div class="time" id="isha">--:--</div><div class="iqama" id="iqama-isha">Iqama: --:--</div></div>
+<script>
+  // ===== PrayTimes setup =====
+  const PT = new PrayTimes("MWL");
 
-  <div class="card" id="qiblaCard" style="max-width:320px;margin:12px auto;">
-    <div style="opacity:.8">Qibla</div>
-    <div class="compass">
-      <div class="needle" id="qiblaNeedle"></div>
-      <div class="centerDot"></div>
-    </div>
-    <div id="qiblaInfo" style="font-weight:800;color:#a78bfa;">Direction : --°</div>
-    <button class="btn" id="enableCompass" type="button">Activer la boussole</button>
-    <div class="hint" id="qiblaHint">Sur iPhone, Apple demande une autorisation.</div>
-  </div>
+  // coords par défaut (Villeneuve-sur-Lot)
+  let coords = [44.408, 0.704];
 
-  <div style="opacity:.6;font-size:12px;margin:18px 0 30px;">Première version de l’app 🕌</div>
+  // UI
+  const angleEl = document.getElementById("angle");
+  const geoBtn  = document.getElementById("geoBtn");
+  const locStatus = document.getElementById("locStatus");
 
-  <script>
-    // ===== PrayTimes setup =====
-    const PT = new PrayTimes("MWL");
-    let coords = [44.408, 0.704]; // défaut Villeneuve-sur-Lot
+  // Restore angle (si déjà choisi)
+  const savedAngle = localStorage.getItem("angle");
+  if (savedAngle) angleEl.value = savedAngle;
 
-    // Restore angle
-    const angleEl = document.getElementById("angle");
-    const savedAngle = localStorage.getItem("angle");
-    if (savedAngle && angleEl) angleEl.value = savedAngle;
-
-    function addMinutes(time, minsToAdd) {
-      const [h, m] = time.split(":").map(Number);
-      const d = new Date();
-      d.setHours(h, m + minsToAdd, 0, 0);
-      return d.toTimeString().slice(0, 5);
-    }
-
-    function updateTimes() {
-      const date = new Date();
-      const timezone = -new Date().getTimezoneOffset() / 60;
-
-      const angle = Number(angleEl?.value || 15);
-      PT.adjust({ fajr: angle, isha: angle });
-
-      const times = PT.getTimes(date, coords, timezone);
-
-      document.getElementById("fajr").innerText = times.fajr;
-      document.getElementById("dhuhr").innerText = times.dhuhr;
-      document.getElementById("asr").innerText = times.asr;
-      document.getElementById("maghrib").innerText = times.maghrib;
-      document.getElementById("isha").innerText = times.isha;
-
-      document.getElementById("iqama-fajr").innerText    = "Iqama: " + addMinutes(times.fajr, 10);
-      document.getElementById("iqama-dhuhr").innerText   = "Iqama: " + addMinutes(times.dhuhr, 10);
-      document.getElementById("iqama-asr").innerText     = "Iqama: " + addMinutes(times.asr, 10);
-      document.getElementById("iqama-maghrib").innerText = "Iqama: " + addMinutes(times.maghrib, 7);
-      document.getElementById("iqama-isha").innerText    = "Iqama: " + addMinutes(times.isha, 10);
-
-      startCountdown(times);
-    }
-updateTimes();
-    // Save angle + refresh
-    if (angleEl) {
-      angleEl.addEventListener("change", () => {
-        localStorage.setItem("angle", angleEl.value);
-        updateTimes();
-      });
-    }
-
-    // ===== Countdown =====
-    let countdownTimer = null;
-
-    function hhmmToDate(hhmm) {
-      const [h, m] = hhmm.split(":").map(Number);
-      const d = new Date();
-      d.setHours(h, m, 0, 0);
-      return d;
-    }
-
-    function formatHMS(ms) {
-      const total = Math.max(0, Math.floor(ms / 1000));
-      const h = String(Math.floor(total / 3600)).padStart(2, "0");
-      const m = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
-      const s = String(total % 60).padStart(2, "0");
-      return `${h}:${m}:${s}`;
-    }
-
-    function startCountdown(times) {
-      const order = [
-        { key: "fajr", name: "Fajr" },
-        { key: "dhuhr", name: "Dhuhr" },
-        { key: "asr", name: "Asr" },
-        { key: "maghrib", name: "Maghrib" },
-        { key: "isha", name: "Isha" },
-      ];
-
-      const now = new Date();
-      let next = null;
-
-      for (const p of order) {
-        const target = hhmmToDate(times[p.key]);
-        if (target > now) { next = { ...p, at: target, time: times[p.key], tomorrow: false }; break; }
-      }
-
-      if (!next) {
-        const tomorrowFajr = hhmmToDate(times.fajr);
-        tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
-        next = { key: "fajr", name: "Fajr", at: tomorrowFajr, time: times.fajr, tomorrow: true };
-      }
-
-      document.getElementById("nextPrayer").innerText =
-        `${next.name} à ${next.time}` + (next.tomorrow ? " (demain)" : "");
-
-      if (countdownTimer) clearInterval(countdownTimer);
-      countdownTimer = setInterval(() => {
-        document.getElementById("countdown").innerText = formatHMS(next.at - new Date());
-      }, 1000);
-    }
-
-    // ===== Reverse geocode city =====
-    async function reverseGeocodeCity(lat, lon) {
-  try {
-    const url =
-      `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=fr&count=1`;
-
-    const res = await fetch(url);
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    if (!data?.results?.length) return null;
-
-    const r = data.results[0];
-    const name = r.name || null;
-    const region = r.admin1 || null;
-
-    return region ? `${name}, ${region}` : name;
-  } catch (e) {
-    return null;
-  }
-}
-
-    // ===== Geolocation button =====
-    const geoBtn = document.getElementById("geoBtn");
-    const locStatus = document.getElementById("locStatus");
-
-geoBtn.addEventListener("click", () => {
-
-  if (!navigator.geolocation) {
-    locStatus.textContent = "Géolocalisation non supportée.";
-    return;
+  function addMinutes(hhmm, mins) {
+    const [h, m] = hhmm.split(":").map(Number);
+    const d = new Date();
+    d.setHours(h, m + mins, 0, 0);
+    return d.toTimeString().slice(0, 5);
   }
 
-  locStatus.textContent = "Localisation en cours...";
+  function hhmmToDateToday(hhmm) {
+    const [h, m] = hhmm.split(":").map(Number);
+    const d = new Date();
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
 
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
+  let countdownTimer = null;
 
-      coords = [lat, lon];   // met à jour les coordonnées globales
-      updateTimes();         // recalcule les horaires
+  function startCountdown(times) {
+    if (countdownTimer) clearInterval(countdownTimer);
 
-      locStatus.textContent =
-        `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)} • Localisation active`;
-    },
+    const order = ["fajr","dhuhr","asr","maghrib","isha"];
+    const now = new Date();
 
-    (err) => {
-      locStatus.textContent = "Erreur localisation.";
-      console.error(err);
-    },
+    // Trouver la prochaine prière
+    let nextName = null;
+    let nextTime = null;
 
-    {
-      enableHighAccuracy: true,
-      timeout: 10000,
-      maximumAge: 60000
+    for (const name of order) {
+      const t = hhmmToDateToday(times[name]);
+      if (t > now) { nextName = name; nextTime = t; break; }
     }
-  );
-
-});
-
-    // ===== Qibla compass =====
-    const qiblaBtn = document.getElementById("enableCompass");
-    const qiblaInfo = document.getElementById("qiblaInfo");
-    const KAABA = { lat: 21.422487, lon: 39.826206 };
-
-    function qiblaBearing(lat, lon) {
-      const toRad = (d) => (d * Math.PI) / 180;
-      const toDeg = (r) => (r * 180) / Math.PI;
-      const φ1 = toRad(lat), φ2 = toRad(KAABA.lat), Δλ = toRad(KAABA.lon - lon);
-      const y = Math.sin(Δλ);
-      const x = Math.cos(φ1) * Math.tan(φ2) - Math.sin(φ1) * Math.cos(Δλ);
-      let brng = toDeg(Math.atan2(y, x));
-      return (brng + 360) % 360;
+    if (!nextName) {
+      // sinon demain fajr
+      nextName = "fajr";
+      nextTime = hhmmToDateToday(times.fajr);
+      nextTime.setDate(nextTime.getDate() + 1);
     }
 
-    async function requestIOSCompassPermission() {
-      if (typeof DeviceOrientationEvent !== "undefined" &&
-          typeof DeviceOrientationEvent.requestPermission === "function") {
-        const res = await DeviceOrientationEvent.requestPermission();
-        if (res !== "granted") throw new Error("Permission boussole refusée");
-      }
+    const labels = {fajr:"Fajr", dhuhr:"Dhuhr", asr:"Asr", maghrib:"Maghrib", isha:"Isha"};
+    document.getElementById("nextLabel").textContent = `${labels[nextName]} à ${times[nextName]}`;
+
+    function tick() {
+      const diff = nextTime - new Date();
+      const s = Math.max(0, Math.floor(diff / 1000));
+      const hh = String(Math.floor(s / 3600)).padStart(2,"0");
+      const mm = String(Math.floor((s % 3600) / 60)).padStart(2,"0");
+      const ss = String(s % 60).padStart(2,"0");
+      document.getElementById("countdown").textContent = `${hh}:${mm}:${ss}`;
     }
+    tick();
+    countdownTimer = setInterval(tick, 1000);
+  }
 
-    function listenCompass(targetBearing) {
-      function onOrientation(e) {
-        let heading = null;
-        if (typeof e.webkitCompassHeading === "number") heading = e.webkitCompassHeading;
-        else if (typeof e.alpha === "number") heading = (360 - e.alpha) % 360;
-        if (heading === null) return;
+  function updateTimes() {
+    // timezone locale (France incl. DST)
+    const date = new Date();
+    const timezone = -date.getTimezoneOffset() / 60;
 
-        const direction = (targetBearing - heading + 360) % 360;
-        qiblaInfo.textContent = `Direction : ${Math.round(direction)}°`;
+    // angle choisi
+    const angle = Number(angleEl.value || 15);
+    PT.adjust({ fajr: angle, isha: angle });
 
-        const needle = document.getElementById("qiblaNeedle");
-        if (needle) needle.style.transform = `translate(-50%, -90%) rotate(${direction}deg)`;
-      }
-      window.addEventListener("deviceorientation", onOrientation, true);
-      window.addEventListener("deviceorientationabsolute", onOrientation, true);
-    }
+    const times = PT.getTimes(date, coords, timezone);
 
-    async function startQiblaCompass() {
-      try {
-        await requestIOSCompassPermission();
-        const bearing = qiblaBearing(coords[0], coords[1]);
-        listenCompass(bearing);
-      } catch (e) {
-        alert("Autorise la boussole dans Safari, puis réessaie.");
-      }
-    }
+    // affichage
+    document.getElementById("fajr").innerText = times.fajr;
+    document.getElementById("dhuhr").innerText = times.dhuhr;
+    document.getElementById("asr").innerText = times.asr;
+    document.getElementById("maghrib").innerText = times.maghrib;
+    document.getElementById("isha").innerText = times.isha;
 
-    qiblaBtn.addEventListener("click", startQiblaCompass);
+    // iqama (exemple simple)
+    document.getElementById("iqama-fajr").innerText = "Iqama: " + addMinutes(times.fajr, 10);
+    document.getElementById("iqama-dhuhr").innerText = "Iqama: " + addMinutes(times.dhuhr, 10);
+    document.getElementById("iqama-asr").innerText = "Iqama: " + addMinutes(times.asr, 10);
+    document.getElementById("iqama-maghrib").innerText = "Iqama: " + addMinutes(times.maghrib, 7);
+    document.getElementById("iqama-isha").innerText = "Iqama: " + addMinutes(times.isha, 10);
 
-    // ===== Initial render =====
+    startCountdown(times);
+  }
+
+  // change angle => recalcul immédiat
+  angleEl.addEventListener("change", () => {
+    localStorage.setItem("angle", angleEl.value);
     updateTimes();
-  </script>
+  });
+
+  // Geoloc => coordonnées seulement + recalcul
+  geoBtn.addEventListener("click", () => {
+    if (!navigator.geolocation) {
+      locStatus.textContent = "Géolocalisation non supportée.";
+      return;
+    }
+
+    locStatus.textContent = "Localisation en cours...";
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        coords = [lat, lon];            // <= clé : on met à jour les coords globales
+        updateTimes();                  // <= recalcul selon coords + angle
+
+        locStatus.textContent = `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)} • localisation active`;
+      },
+      (err) => {
+        locStatus.textContent = "Erreur localisation (autorisation/refus).";
+        console.error(err);
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+    );
+  });
+
+  // premier calcul au chargement
+  updateTimes();
+</script>
 </body>
 </html>
