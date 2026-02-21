@@ -299,21 +299,23 @@
       }
       locStatus.textContent = "Localisation…";
 
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
+      async (position) => {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
 
-          coords = [lat, lon];
-          updateTimes();
+  // 1) Met à jour les horaires
+  calculatePrayerTimes(lat, lon);
 
-          const city = await reverseGeocodeCity(lat, lon);
-          locStatus.textContent = city ? `📍 ${city} • localisation active` : `📍 Localisation active`;
-        },
-        () => { locStatus.textContent = "Autorisation refusée."; },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    });
+  // 2) Affiche la ville (sinon fallback)
+  locStatus.textContent = "Localisation…";
+  const city = await reverseGeocodeCity(lat, lon);
+
+  if (city) {
+    locStatus.textContent = `📍 ${city} • Localisation active`;
+  } else {
+    locStatus.textContent = `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)} • Localisation active`;
+  }
+},
 
     // ===== Qibla compass =====
     const qiblaBtn = document.getElementById("enableCompass");
