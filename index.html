@@ -268,14 +268,25 @@
 
     // ===== Reverse geocode city =====
     async function reverseGeocodeCity(lat, lon) {
-      try {
-        const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=fr`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data?.results?.length) return data.results[0].name || null;
-      } catch (e) {}
-      return null;
-    }
+  try {
+    const url =
+      `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=fr&count=1`;
+
+    const res = await fetch(url);
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    if (!data?.results?.length) return null;
+
+    const r = data.results[0];
+    const name = r.name || null;
+    const region = r.admin1 || null;
+
+    return region ? `${name}, ${region}` : name;
+  } catch (e) {
+    return null;
+  }
+}
 
     // ===== Geolocation button =====
     const geoBtn = document.getElementById("geoBtn");
