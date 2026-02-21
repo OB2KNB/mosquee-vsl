@@ -344,17 +344,15 @@ function updateTimes() {
   const angle = Number(document.getElementById("angle").value);
   PT.adjust({ fajr: angle, isha: angle });
 
-const times = PT.getTimes(date, coords, timezone);
+  const times = PT.getTimes(date, coords, timezone);
+
   document.getElementById("fajr").innerText = times.fajr;
   document.getElementById("dhuhr").innerText = times.dhuhr;
   document.getElementById("asr").innerText = times.asr;
   document.getElementById("maghrib").innerText = times.maghrib;
   document.getElementById("isha").innerText = times.isha;
-  function addMinutes(time, minsToAdd) {
-  const [h, m] = time.split(":").map(Number);
-  const d = new Date();
-  d.setHours(h, m + minsToAdd, 0, 0);
-  return d.toTimeString().slice(0, 5);
+
+  // ... ton addMinutes + iqama + countdown comme tu as déjà
 }
 
 // Iqama auto
