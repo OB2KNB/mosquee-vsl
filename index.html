@@ -292,30 +292,40 @@ updateTimes();
     const geoBtn = document.getElementById("geoBtn");
     const locStatus = document.getElementById("locStatus");
 
-    geoBtn.addEventListener("click", () => {
-      if (!navigator.geolocation) {
-        locStatus.textContent = "Géolocalisation non supportée.";
-        return;
-      }
-      locStatus.textContent = "Localisation…";
+geoBtn.addEventListener("click", () => {
 
-      async (position) => {
-  const lat = position.coords.latitude;
-  const lon = position.coords.longitude;
-
-  // 1) Met à jour les horaires
-  calculatePrayerTimes(lat, lon);
-
-  // 2) Affiche la ville (sinon fallback)
-  locStatus.textContent = "Localisation…";
-  const city = await reverseGeocodeCity(lat, lon);
-
-  if (city) {
-    locStatus.textContent = `📍 ${city} • Localisation active`;
-  } else {
-    locStatus.textContent = `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)} • Localisation active`;
+  if (!navigator.geolocation) {
+    locStatus.textContent = "Géolocalisation non supportée.";
+    return;
   }
-},
+
+  locStatus.textContent = "Localisation en cours...";
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      coords = [lat, lon];   // met à jour les coordonnées globales
+      updateTimes();         // recalcule les horaires
+
+      locStatus.textContent =
+        `📍 ${lat.toFixed(4)}, ${lon.toFixed(4)} • Localisation active`;
+    },
+
+    (err) => {
+      locStatus.textContent = "Erreur localisation.";
+      console.error(err);
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 60000
+    }
+  );
+
+});
 
     // ===== Qibla compass =====
     const qiblaBtn = document.getElementById("enableCompass");
