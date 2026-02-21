@@ -386,22 +386,7 @@ function updateTimes() {
   }
 }
 
-// Iqama auto
-document.getElementById("iqama-fajr").innerText =
-  "Iqama: " + addMinutes(times.fajr, 10);
 
-document.getElementById("iqama-dhuhr").innerText =
-  "Iqama: " + addMinutes(times.dhuhr, 10);
-
-document.getElementById("iqama-asr").innerText =
-  "Iqama: " + addMinutes(times.asr, 10);
-
-document.getElementById("iqama-maghrib").innerText =
-  "Iqama: " + addMinutes(times.maghrib, 7);
-
-document.getElementById("iqama-isha").innerText =
-  "Iqama: " + addMinutes(times.isha, 10);
-  startCountdown(times);
 }
 let countdownTimer = null;
 
