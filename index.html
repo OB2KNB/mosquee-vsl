@@ -337,22 +337,53 @@ let coords = [44.408, 0.704]; // Villeneuve par défaut
 
 
 function updateTimes() {
-  const date = new Date();
+  try {
+    // 1) sécurités
+    if (typeof PrayTimes === "undefined") {
+      throw new Error("PrayTimes.js pas chargé (script CDN bloqué ?)");
+    }
+    if (!Array.isArray(coords) || coords.length !== 2) {
+      throw new Error("coords invalide");
+    }
 
-  const timezone = -new Date().getTimezoneOffset() / 60;
+    const date = new Date();
+    const timezone = -new Date().getTimezoneOffset() / 60;
 
-  const angle = Number(document.getElementById("angle").value);
-  PT.adjust({ fajr: angle, isha: angle });
+    const angle = Number(document.getElementById("angle")?.value || 15);
+    PT.adjust({ fajr: angle, isha: angle });
 
-  const times = PT.getTimes(date, coords, timezone);
+    const times = PT.getTimes(date, coords, timezone);
 
-  document.getElementById("fajr").innerText = times.fajr;
-  document.getElementById("dhuhr").innerText = times.dhuhr;
-  document.getElementById("asr").innerText = times.asr;
-  document.getElementById("maghrib").innerText = times.maghrib;
-  document.getElementById("isha").innerText = times.isha;
+    // 2) affichage
+    document.getElementById("fajr").innerText = times.fajr;
+    document.getElementById("dhuhr").innerText = times.dhuhr;
+    document.getElementById("asr").innerText = times.asr;
+    document.getElementById("maghrib").innerText = times.maghrib;
+    document.getElementById("isha").innerText = times.isha;
 
-  // ... ton addMinutes + iqama + countdown comme tu as déjà
+    // iqama
+    function addMinutes(time, minsToAdd) {
+      const [h, m] = time.split(":").map(Number);
+      const d = new Date();
+      d.setHours(h, m + minsToAdd, 0, 0);
+      return d.toTimeString().slice(0, 5);
+    }
+
+    document.getElementById("iqama-fajr").innerText = "Iqama: " + addMinutes(times.fajr, 10);
+    document.getElementById("iqama-dhuhr").innerText = "Iqama: " + addMinutes(times.dhuhr, 10);
+    document.getElementById("iqama-asr").innerText = "Iqama: " + addMinutes(times.asr, 10);
+    document.getElementById("iqama-maghrib").innerText = "Iqama: " + addMinutes(times.maghrib, 7);
+    document.getElementById("iqama-isha").innerText = "Iqama: " + addMinutes(times.isha, 10);
+
+    // prochaine prière / countdown (si tu l’as)
+    if (typeof startCountdown === "function") startCountdown(times);
+
+  } catch (err) {
+    // Affiche l'erreur dans la carte localisation (au lieu de tout casser en silence)
+    const locStatus = document.getElementById("locStatus");
+    if (locStatus) locStatus.textContent = "Erreur: " + err.message;
+    console.error(err);
+  }
 }
 
 // Iqama auto
