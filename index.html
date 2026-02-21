@@ -344,7 +344,7 @@ function updateTimes() {
   const angle = Number(document.getElementById("angle").value);
   PT.adjust({ fajr: angle, isha: angle });
 
-  const times = PT.getTimes(date, coords, timezone, 0);
+const times = PT.getTimes(date, coords, timezone);
   document.getElementById("fajr").innerText = times.fajr;
   document.getElementById("dhuhr").innerText = times.dhuhr;
   document.getElementById("asr").innerText = times.asr;
