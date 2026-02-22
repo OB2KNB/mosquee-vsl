@@ -70,29 +70,81 @@ body {
   .page { display: none; }
 .page-active { display: block; }
   /* ===== Bottom Navigation ===== */
-.bottom-nav {
+/* ===== Bottom Navigation (Premium) ===== */
+.bottom-nav{
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: rgba(20, 20, 40, 0.95);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  width: min(520px, calc(100% - 28px));
+  height: 76px;
+
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  backdrop-filter: blur(10px);
+  justify-content: space-around;
+
+  background: rgba(14, 18, 34, 0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+
+  z-index: 9999;
 }
 
-.nav-btn {
-  background: none;
-  border: none;
-  font-size: 26px;
-  color: #aaa;
+.nav-btn{
+  position: relative;
+  width: 120px;
+  height: 58px;
+  border: 0;
+  background: transparent;
+
+  color: rgba(255,255,255,0.70);
+  border-radius: 999px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  font-weight: 800;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: transform .12s ease, color .12s ease;
 }
 
-.nav-btn.active {
-  color: #7c5cff;
+.nav-btn:active{ transform: scale(0.98); }
+
+.nav-btn .icon{ font-size: 22px; line-height: 1; }
+.nav-btn .label{ font-size: 11px; opacity: 0.85; letter-spacing: .2px; }
+
+.nav-btn.active{
+  color: #fff;
 }
+
+.nav-btn.active::before{
+  content:"";
+  position:absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(160,120,255,0.95), rgba(110,70,255,0.85));
+  box-shadow: 0 14px 30px rgba(120,80,255,0.40);
+  z-index: -1;
+}
+
+.nav-btn.disabled{
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* garde ton padding-bottom existant (80px), sinon: */
+body{ padding-bottom: 95px; }
   </style>
 </head>
 
