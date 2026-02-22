@@ -477,13 +477,7 @@ window.addEventListener("load", () => {
   const splash = document.getElementById("splash");
   if (!splash) return;
 
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      splash.classList.add("hide");
-      setTimeout(() => splash.remove(), 600);
-    }, 650); // durée visible (ajuste si tu veux)
-  });
-});
+
 </script>
 <script>
   // Splash: on le cache quoi qu'il arrive (max 1,2s)
