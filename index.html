@@ -293,9 +293,22 @@ body {
 <section id="page-times" class="page page-active"></section>
 <section id="page-qibla" class="page"></section>
 <!-- ===== Bottom Navigation ===== -->
-<nav class="bottom-nav">
-  <button id="tab-times" class="nav-btn active">🕒</button>
-  <button id="tab-qibla" class="nav-btn">🧭</button>
+<!-- ===== Bottom Navigation (Premium) ===== -->
+<nav class="bottom-nav" aria-label="Navigation">
+  <button id="tab-times" class="nav-btn active" type="button" aria-label="Horaires">
+    <span class="icon">🕒</span>
+    <span class="label">Horaires</span>
+  </button>
+
+  <button id="tab-qibla" class="nav-btn" type="button" aria-label="Qibla">
+    <span class="icon">🧭</span>
+    <span class="label">Qibla</span>
+  </button>
+
+  <button class="nav-btn disabled" type="button" aria-label="À venir">
+    <span class="icon">📖</span>
+    <span class="label">Bientôt</span>
+  </button>
 </nav>
 </body>
 </html>
