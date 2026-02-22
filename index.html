@@ -151,6 +151,58 @@ body {
 
 /* garde ton padding-bottom existant (80px), sinon: */
 body{ padding-bottom: 95px; }
+  /* ===== SPLASH (Premium) ===== */
+#splash{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(1000px 600px at 50% 20%, rgba(124,92,255,.35), transparent 60%),
+              linear-gradient(180deg, #0b1220 0%, #0a0f1a 60%, #070a12 100%);
+  transition: opacity .45s ease, transform .45s ease;
+}
+
+#splash .splash-inner{
+  text-align: center;
+  transform: translateY(6px);
+  animation: splashPop .9s ease forwards;
+  padding: 24px;
+}
+
+#splash .splash-logo{
+  width: 92px;
+  height: 92px;
+  border-radius: 22px;
+  box-shadow: 0 16px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08) inset;
+  margin-bottom: 14px;
+}
+
+#splash .splash-title{
+  font-weight: 900;
+  font-size: 34px;
+  letter-spacing: .4px;
+  color: #fff;
+  text-shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+#splash .splash-sub{
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: .70;
+}
+
+#splash.hide{
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+@keyframes splashPop{
+  0%{ opacity: 0; transform: translateY(14px) scale(.98); }
+  100%{ opacity: 1; transform: translateY(0) scale(1); }
+}
+/* ============================ */
   </style>
 </head>
 
