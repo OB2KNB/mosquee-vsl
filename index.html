@@ -68,6 +68,30 @@ body {
     .small{ opacity:.65; font-size:12px; margin-top:18px; }
   .page { display: none; }
 .page-active { display: block; }
+  /* ===== Bottom Navigation ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: rgba(20, 20, 40, 0.95);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #aaa;
+}
+
+.nav-btn.active {
+  color: #7c5cff;
+}
   </style>
 </head>
 
