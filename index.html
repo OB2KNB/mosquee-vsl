@@ -472,6 +472,18 @@ body{ padding-bottom: 95px; }
     // écran par défaut
     show("times");
   });
+  // Splash premium: cache après petit délai + 1 frame
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash");
+  if (!splash) return;
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      splash.classList.add("hide");
+      setTimeout(() => splash.remove(), 600);
+    }, 650); // durée visible (ajuste si tu veux)
+  });
+});
 </script>
 </body>
 </html>
