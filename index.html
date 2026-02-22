@@ -415,14 +415,41 @@ body{ padding-bottom: 95px; }
 
 <!-- ===== PAGE QIBLA ===== -->
 <section id="page-qibla" class="page">
-  <h1>Qibla</h1>
-  <div class="sub">Page boussole (test)</div>
+ <h1>Qibla</h1>
+<div class="sub">Oriente ton téléphone pour trouver la direction.</div>
 
-  <div class="wrap">
-    <div class="card">
-      <div class="title2">Si tu vois ça, l’onglet marche ✅</div>
+<div class="qibla-shell">
+  <div class="qibla-dial" id="qiblaDial">
+    <div class="qibla-cardinals">
+      <span class="n">N</span>
+      <span class="e">E</span>
+      <span class="s">S</span>
+      <span class="w">W</span>
+    </div>
+
+    <div class="qibla-ring"></div>
+
+    <!-- Needle -->
+    <div class="qibla-needle" id="qiblaNeedle"></div>
+    <div class="qibla-dot"></div>
+
+    <!-- Target marker (Kaaba) -->
+    <div class="qibla-target">
+      <div class="kaaba-dot"></div>
+      <div class="kaaba-label">Kaaba</div>
     </div>
   </div>
+
+  <div class="qibla-readouts">
+    <div class="qibla-row">
+      <div class="label">Direction</div>
+      <div class="value" id="qiblaInfo">--°</div>
+    </div>
+    <div class="qibla-hint" id="qiblaHint">Sur iPhone, Apple demande une autorisation.</div>
+
+    <button class="btn qibla-btn" id="enableCompass" type="button">Activer la boussole</button>
+  </div>
+</div>
 </section>
   <!-- Boussole premium ici plus tard -->
 
