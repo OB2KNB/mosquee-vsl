@@ -485,5 +485,28 @@ window.addEventListener("load", () => {
   });
 });
 </script>
+<script>
+  // Splash: on le cache quoi qu'il arrive (max 1,2s)
+  (function () {
+    function hideSplash() {
+      const splash = document.getElementById("splash");
+      if (!splash) return;
+
+      splash.classList.add("hide");
+      // on le retire du DOM après l'anim (sécurité)
+      setTimeout(() => splash.remove(), 450);
+    }
+
+    // Dès que le DOM est prêt
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", hideSplash);
+    } else {
+      hideSplash();
+    }
+
+    // Sécurité: même si un bug empêche tout, on force après 1200ms
+    setTimeout(hideSplash, 1200);
+  })();
+</script>
 </body>
 </html>
