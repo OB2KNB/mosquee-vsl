@@ -203,6 +203,88 @@ body{ padding-bottom: 95px; }
   100%{ opacity: 1; transform: translateY(0) scale(1); }
 }
 /* ============================ */
+/* ===== QIBLA PREMIUM UI ===== */
+.qibla-shell{max-width:380px;margin:14px auto 0;padding:0 14px;}
+.sub{opacity:.75;margin-top:6px;font-size:14px}
+
+.qibla-dial{
+  position:relative;
+  width:280px;height:280px;
+  margin:18px auto 14px;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(167,139,250,.18), rgba(11,18,32,1) 55%, rgba(5,8,18,1) 100%);
+  box-shadow: 0 18px 70px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.08);
+  overflow:hidden;
+}
+
+.qibla-ring{
+  position:absolute;inset:14px;
+  border-radius:999px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  backdrop-filter: blur(10px);
+}
+
+.qibla-cardinals span{
+  position:absolute;
+  font-weight:900;
+  letter-spacing:.5px;
+  color: rgba(255,255,255,.82);
+  text-shadow: 0 10px 22px rgba(0,0,0,.55);
+}
+.qibla-cardinals .n{top:10px;left:50%;transform:translateX(-50%);}
+.qibla-cardinals .s{bottom:10px;left:50%;transform:translateX(-50%);opacity:.65;}
+.qibla-cardinals .e{right:12px;top:50%;transform:translateY(-50%);opacity:.75;}
+.qibla-cardinals .w{left:12px;top:50%;transform:translateY(-50%);opacity:.75;}
+
+.qibla-needle{
+  position:absolute;
+  left:50%;top:50%;
+  width:4px;height:110px;
+  transform-origin: 50% 92%;
+  transform: translate(-50%,-92%) rotate(0deg);
+  border-radius:999px;
+  background: linear-gradient(180deg, rgba(167,139,250,1), rgba(167,139,250,0));
+  filter: drop-shadow(0 10px 16px rgba(167,139,250,.25));
+  transition: transform 120ms linear;
+}
+
+.qibla-dot{
+  position:absolute;left:50%;top:50%;
+  width:10px;height:10px;border-radius:999px;
+  transform:translate(-50%,-50%);
+  background: rgba(255,255,255,.8);
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+}
+
+.qibla-target{
+  position:absolute;
+  left:50%; top:18px;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.kaaba-dot{
+  width:10px;height:10px;border-radius:999px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 0 0 6px rgba(167,139,250,.15);
+}
+.kaaba-label{
+  font-size:12px;opacity:.75;
+}
+
+.qibla-readouts{
+  background: rgba(20,28,48,0.9);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.45);
+}
+.qibla-row{display:flex;justify-content:space-between;align-items:baseline}
+.qibla-row .label{opacity:.7;font-size:13px}
+.qibla-row .value{font-weight:900;font-size:22px;color:#a78bfa}
+.qibla-hint{margin-top:10px;opacity:.7;font-size:13px}
+.qibla-btn{margin-top:12px;width:100%}
+/* =========================== */
   </style>
 </head>
 
