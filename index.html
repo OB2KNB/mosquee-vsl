@@ -377,5 +377,34 @@ body{ padding-bottom: 95px; }
     <span class="label">Bientôt</span>
   </button>
 </nav>
+<script>
+  // Tabs (Horaires / Qibla)
+  document.addEventListener("DOMContentLoaded", () => {
+    const pageTimes = document.getElementById("page-times");
+    const pageQibla = document.getElementById("page-qibla");
+
+    const tabTimes = document.getElementById("tab-times");
+    const tabQibla = document.getElementById("tab-qibla");
+
+    if (!pageTimes || !pageQibla || !tabTimes || !tabQibla) {
+      console.log("Tabs: éléments manquants", { pageTimes, pageQibla, tabTimes, tabQibla });
+      return;
+    }
+
+    function show(which) {
+      pageTimes.classList.toggle("page-active", which === "times");
+      pageQibla.classList.toggle("page-active", which === "qibla");
+
+      tabTimes.classList.toggle("active", which === "times");
+      tabQibla.classList.toggle("active", which === "qibla");
+    }
+
+    tabTimes.addEventListener("click", () => show("times"));
+    tabQibla.addEventListener("click", () => show("qibla"));
+
+    // écran par défaut
+    show("times");
+  });
+</script>
 </body>
 </html>
